@@ -1,41 +1,34 @@
 <template>
   <div class="convert">
     <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
-    <form class="form" @submit.prevent="submitImg">
-      <input type="file" accept="img/*" @change="changeImg" />
-      <button type="submit" class="button">click</button>
-    </form>
+    <FileForm v-model="previewImage" @imageChange="onImageChange" />
+    <img :src="previewImage" />
     <div>
-      <img :src="postData.thumbnail" alt="" />
+      {{ previewImage }}
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  data() {
+<script lang="ts">
+import { defineComponent, ref } from "vue";
+import FileForm from "@/components/FileForm.vue"; // @ is an alias to /src
+
+export default defineComponent({
+  name: "ConvertImage",
+  components: {
+    FileForm,
+  },
+  setup() {
+    let previewImage = ref("");
+    const onImageChange = (selectedImage: string) => {
+      previewImage.value = selectedImage;
+    };
     return {
-      thumbnail: "",
-      postData: {
-        thumbnail: "",
-      },
+      previewImage,
+      onImageChange,
     };
   },
-  methods: {
-    changeImg(e) {
-      this.thumbnail = e.target.files[0];
-      if (this.thumbnail) {
-        const reader = new FileReader();
-        reader.onload = () => {
-          this.postData.thumbnail = reader.result + "";
-        };
-        reader.readAsDataURL(this.thumbnail);
-        console.log("Input image is prepared");
-      }
-    },
-  },
-};
+});
 </script>
 
 <style lang="scss" scoped></style>
