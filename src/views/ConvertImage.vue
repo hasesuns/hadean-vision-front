@@ -1,7 +1,11 @@
 <template>
   <div class="convert">
     <img alt="Vue logo" src="../assets/logo.png" />
-    <FileForm v-model="previewImage" @imageChange="onImageChange" />
+    <FileForm
+      v-model="previewImage"
+      @imageChange="onImageChange"
+      @imageSubmit="onImageSubmit"
+    />
     <img :src="previewImage" />
     <div>
       {{ previewImage }}
@@ -23,9 +27,13 @@ export default defineComponent({
     const onImageChange = (selectedImage: string) => {
       previewImage.value = selectedImage;
     };
+    const onImageSubmit = () => {
+      console.log("submit");
+    };
     return {
       previewImage,
       onImageChange,
+      onImageSubmit
     };
   },
 });

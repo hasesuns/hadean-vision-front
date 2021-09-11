@@ -1,5 +1,5 @@
 <template>
-  <form class="form" @submit.prevent="submitImg">
+  <form class="form" @submit.prevent="imageSubmit">
     <input
       id="input_img"
       type="file"
@@ -7,6 +7,7 @@
       required
       @change="handleChange"
     />
+    <button type="submit" class="ui button">Submit</button>
   </form>
 </template>
 
@@ -25,17 +26,25 @@ export default defineComponent({
       type: [String],
     },
   },
-  emits: ["imageChange"],
+  emits: ["imageChange", "imageSubmit"],
   setup(props, context) {
+    let selectedImage: string;
     const handleChange = (e: HTMLElementEvent<HTMLInputElement>) => {
-      let selectedImage;
       if (e.target.files && e.target.files.length != 0) {
         selectedImage = window.URL.createObjectURL(e.target.files[0]);
       }
       context.emit("imageChange", selectedImage);
     };
+
+    const imageSubmit = () => {
+      if (selectedImage) {
+        context.emit("imageSubmit");
+      }
+    };
+
     return {
       handleChange,
+      imageSubmit,
     };
   },
 });
