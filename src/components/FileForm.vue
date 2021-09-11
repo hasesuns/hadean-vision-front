@@ -1,7 +1,7 @@
 <template>
-  <form class="form" @submit.prevent="imageSubmit">
+  <form class="form">
     <input
-      id="input_img"
+      id="selected_img"
       type="file"
       accept="img/*"
       required
@@ -20,19 +20,12 @@ export default defineComponent({
   model: {
     event: "change",
   },
-  props: {
-    value: {
-      type: [String],
-    },
-  },
-  emits: ["imageChange"],
-  setup(props, context) {
-    let selectedImage: string;
+  emits: ["imageSelect"],
+  setup(_, context) {
     const handleChange = (e: HTMLElementEvent<HTMLInputElement>) => {
       if (e.target.files && e.target.files.length != 0) {
-        selectedImage = window.URL.createObjectURL(e.target.files[0]);
+        context.emit("imageSelect", e.target.files[0]);
       }
-      context.emit("imageChange", selectedImage);
     };
     return {
       handleChange,
