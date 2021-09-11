@@ -7,7 +7,6 @@
       required
       @change="handleChange"
     />
-    <button type="submit" class="ui button">Submit</button>
   </form>
 </template>
 
@@ -26,7 +25,7 @@ export default defineComponent({
       type: [String],
     },
   },
-  emits: ["imageChange", "imageSubmit"],
+  emits: ["imageChange"],
   setup(props, context) {
     let selectedImage: string;
     const handleChange = (e: HTMLElementEvent<HTMLInputElement>) => {
@@ -35,16 +34,8 @@ export default defineComponent({
       }
       context.emit("imageChange", selectedImage);
     };
-
-    const imageSubmit = () => {
-      if (selectedImage) {
-        context.emit("imageSubmit");
-      }
-    };
-
     return {
       handleChange,
-      imageSubmit,
     };
   },
 });
