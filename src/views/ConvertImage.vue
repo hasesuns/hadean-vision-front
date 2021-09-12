@@ -1,7 +1,7 @@
 <template>
   <div class="convert">
     <img alt="Vue logo" src="../assets/logo.png" />
-    <FileForm @imageSelect="onImageSelect" />
+    <ImageForm @imageSelect="onImageSelect" />
     <button id="convert_button" @click="postImage" type="submit" value="POST">
       Convert
     </button>
@@ -19,13 +19,13 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import FileForm from "@/components/FileForm.vue"; // @ is an alias to /src
+import ImageForm from "@/components/ImageForm.vue"; // @ is an alias to /src
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
 export default defineComponent({
   name: "ConvertImage",
   components: {
-    FileForm,
+    ImageForm,
   },
   setup() {
     let inputImageBlobURL = ref("");

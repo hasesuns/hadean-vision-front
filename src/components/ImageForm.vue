@@ -16,7 +16,7 @@ interface HTMLElementEvent<T extends HTMLElement> extends Event {
   target: T;
 }
 export default defineComponent({
-  name: "FileForm",
+  name: "ImageForm",
   model: {
     event: "change",
   },
