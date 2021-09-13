@@ -1,18 +1,22 @@
 <template>
-  <div class="convert">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <ImageForm @imageSelect="onImageSelect" />
-    <button id="convert_button" @click="postImage" type="submit" value="POST">
-      Convert
-    </button>
-    <div id="input_image">
-      <img :src="inputImageBlobURL" />
-    </div>
-    <div>
-      {{ inputImageBlobURL }}
-    </div>
-    <div id="output_image">
-      <img :src="outputImageBlobURL" />
+  <div class="container">
+    <div class="menu">Menu</div>
+    <div class="main">
+      <div class="file-form">
+        <ImageForm @imageSelect="onImageSelect" />
+        <button
+          id="convert_button"
+          @click="postImage"
+          type="submit"
+          value="POST"
+        >
+          Convert
+        </button>
+      </div>
+      <div class="images">
+        <img class="input_image" :src="inputImageBlobURL" />
+        <img class="output_image" :src="outputImageBlobURL" />
+      </div>
     </div>
   </div>
 </template>
@@ -71,4 +75,46 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.container {
+  display: flex;
+  width: 98vw;
+  height: 90vh;
+  justify-content: space-between;
+}
+.menu {
+  order: 2;
+  height: 85vh;
+  width: 20%;
+  background-color: rgba(56, 174, 111, 0.658);
+  align-items: stretch;
+  margin-right: 1vh;
+}
+.main {
+  display: flex;
+  order: 1;
+  width: 80%;
+  height: 85vh;
+  flex-direction: column;
+}
+.file-form {
+  display: flex;
+  margin-left: 3%;
+  margin-bottom: 2vh;
+}
+.images {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 3%;
+  margin-right: 5%;
+}
+.input_image {
+  flex-shrink: 0;
+  width: 45%;
+}
+.output_image {
+  flex-shrink: 0;
+  width: 45%;
+}
+</style>
