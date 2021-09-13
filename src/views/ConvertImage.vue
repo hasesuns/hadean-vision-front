@@ -42,8 +42,7 @@ export default defineComponent({
     };
     const postImage = async () => {
       console.log("post");
-      const url = "http://127.0.0.1:8000/convert/";
-
+      const url = process.env.VUE_APP_API_BASE + "/convert/";
       const formData = new FormData();
       const blob = await fetch(inputImageBlobURL.value).then((r) => r.blob());
       const apiInputValName = "file";
