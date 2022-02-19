@@ -1,12 +1,6 @@
 <template>
   <form class="form">
-    <input
-      id="selected_img"
-      type="file"
-      accept="img/*"
-      required
-      @change="handleChange"
-    />
+    <input type="file" accept="img/*" required @change="handleChange" />
   </form>
 </template>
 
