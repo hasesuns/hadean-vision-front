@@ -1,14 +1,12 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import Home from "../views/Home.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
-    name: "Home",
-    component: Home,
+    redirect: "/convert_image",
   },
   {
-    path: "/convert",
+    path: "/convert_image",
     name: "ConvertImage",
     // route level code-splitting
     // this generates a separate chunk (convert.[hash].js) for this route

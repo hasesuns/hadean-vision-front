@@ -1,7 +1,6 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/convert">Convert</router-link>
+    <router-link to="/convert_image">Convert Image</router-link>
   </div>
   <router-view />
 </template>
