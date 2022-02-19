@@ -2,17 +2,12 @@
   <div class="container">
     <div class="menu">Menu</div>
     <div class="main">
-      <div class="file-form">
-        <ImageForm @imageSelect="onImageSelect" />
-        <button
-          id="convert_button"
-          @click="postImage"
-          type="submit"
-          value="POST"
-        >
-          Convert
-        </button>
-      </div>
+      <ImageSubmitForm
+        class="image-submit-form-container"
+        buttonText="Convert"
+        @onSelectImage="onSelectImage"
+        @onClickSubmitBtn="postImage"
+      />
       <div class="images">
         <img class="input_image" :src="inputImageBlobURL" />
         <img class="output_image" :src="outputImageBlobURL" />
@@ -23,20 +18,20 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import ImageForm from "@/components/Atoms/ImageForm.vue"; // @ is an alias to /src
+import ImageSubmitForm from "@/components/Molecules/ImageSubmitForm.vue";
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
 export default defineComponent({
   name: "ConvertImage",
   components: {
-    ImageForm,
+    ImageSubmitForm,
   },
   setup() {
     let inputImageBlobURL = ref("");
     let inputImageName = "";
     let outputImageBlobURL = ref("");
 
-    const onImageSelect = (selectedImage: File) => {
+    const onSelectImage = (selectedImage: File) => {
       inputImageBlobURL.value = window.URL.createObjectURL(selectedImage);
       inputImageName = selectedImage.name;
     };
@@ -66,7 +61,7 @@ export default defineComponent({
     };
     return {
       inputImageBlobURL,
-      onImageSelect,
+      onSelectImage,
       postImage,
       outputImageBlobURL,
     };
@@ -96,7 +91,7 @@ export default defineComponent({
   height: 85vh;
   flex-direction: column;
 }
-.file-form {
+.image-submit-form-container {
   display: flex;
   margin-left: 3%;
   margin-bottom: 2vh;

@@ -14,11 +14,11 @@ export default defineComponent({
   model: {
     event: "change",
   },
-  emits: ["imageSelect"],
+  emits: ["onSelectImage"],
   setup(_, context) {
     const handleChange = (e: HTMLElementEvent<HTMLInputElement>) => {
       if (e.target.files && e.target.files.length != 0) {
-        context.emit("imageSelect", e.target.files[0]);
+        context.emit("onSelectImage", e.target.files[0]);
       }
     };
     return {
