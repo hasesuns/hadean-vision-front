@@ -23,7 +23,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import ImageForm from "@/components/ImageForm.vue"; // @ is an alias to /src
+import ImageForm from "@/components/Atoms/ImageForm.vue"; // @ is an alias to /src
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
 export default defineComponent({
