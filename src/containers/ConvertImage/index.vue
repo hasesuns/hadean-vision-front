@@ -22,7 +22,7 @@ import ImageSubmitForm from "@/components/Molecules/ImageSubmitForm.vue";
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
 export default defineComponent({
-  name: "ConvertImage",
+  name: "ConvertImageContainer",
   components: {
     ImageSubmitForm,
   },
