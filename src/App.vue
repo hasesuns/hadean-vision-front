@@ -1,9 +1,32 @@
 <template>
   <div id="nav">
-    <router-link to="/convert_image">Convert Image</router-link>
+    <router-link
+      to="/convert_image"
+      :convertImageRepository="convertImageRepository"
+      >Convert Image</router-link
+    >
   </div>
   <router-view />
 </template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+import ConvertImageRepository from "@/repositories/ConvertImageRepository";
+import ConvertImageInputData from "@/usecases/convertImage/ConvertImageInputData";
+import store from "@/store";
+
+export default defineComponent({
+  name: "App",
+  setup() {
+    const convertImageRepository: ConvertImageRepository = {
+      postApi: (params: ConvertImageInputData) => {
+        return store.dispatch("postApi", params);
+      },
+    };
+    return { convertImageRepository };
+  },
+});
+</script>
 
 <style lang="scss">
 #app {
