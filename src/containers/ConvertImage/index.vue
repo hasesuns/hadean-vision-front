@@ -17,16 +17,25 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, computed } from "vue";
 import ImageSubmitForm from "@/components/Molecules/ImageSubmitForm.vue";
+import ConvertImageInteractor from "@/containers/convertImage/ConvertImageInteractor";
+import ConvertImageRepository from "@/repositories/ConvertImageRepository";
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import ConvertImageInputData from "@/usecases/convertImage/ConvertImageInputData";
 
 export default defineComponent({
   name: "ConvertImageContainer",
+  props: {
+    convertImageRepository: {
+      type: Object as () => ConvertImageRepository,
+      required: true,
+    },
+  },
   components: {
     ImageSubmitForm,
   },
-  setup() {
+  setup(props) {
     let inputImageBlobURL = ref("");
     let inputImageName = "";
     let outputImageBlobURL = ref("");
@@ -35,30 +44,39 @@ export default defineComponent({
       inputImageBlobURL.value = window.URL.createObjectURL(selectedImage);
       inputImageName = selectedImage.name;
     };
+    // const postImage = async () => {
+    //   console.log("post");
+    //   const url = process.env.VUE_APP_API_BASE + "/convert/";
+    //   const formData = new FormData();
+    //   const blob = await fetch(inputImageBlobURL.value).then((r) => r.blob());
+    //   const apiInputValName = "file";
+    //   formData.append(apiInputValName, blob, inputImageName);
+
+    //   const config: AxiosRequestConfig = {
+    //     headers: {
+    //       "Content-Type": "multipart/form-data",
+    //     },
+    //     responseType: "blob",
+    //   };
+
+    //   await axios
+    //     .post(url, formData, config)
+    //     .then(function (response: AxiosResponse) {
+    //       outputImageBlobURL.value = window.URL.createObjectURL(response.data);
+    //     })
+    //     .catch(function (error: Error) {
+    //       console.log(error);
+    //     });
+    // };
     const postImage = async () => {
-      console.log("post");
-      const url = process.env.VUE_APP_API_BASE + "/convert/";
-      const formData = new FormData();
-      const blob = await fetch(inputImageBlobURL.value).then((r) => r.blob());
-      const apiInputValName = "file";
-      formData.append(apiInputValName, blob, inputImageName);
-
-      const config: AxiosRequestConfig = {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-        responseType: "blob",
-      };
-
-      await axios
-        .post(url, formData, config)
-        .then(function (response: AxiosResponse) {
-          outputImageBlobURL.value = window.URL.createObjectURL(response.data);
-        })
-        .catch(function (error: Error) {
-          console.log(error);
-        });
+      const convertImageInputData = new ConvertImageInputData(
+        inputImageName,
+        inputImageBlobURL.value,
+        { method: "kmeans" }
+      );
+      return props.convertImageRepository.postApi(convertImageInputData);
     };
+
     return {
       inputImageBlobURL,
       onSelectImage,
