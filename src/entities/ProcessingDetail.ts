@@ -1,7 +1,8 @@
-export interface ProcessingDetail {
+export default interface ProcessingDetail {
   id: number;
   inputFileName: string;
-  fileType: string;
+  inputImageBlobURL: string;
+  fileType: "image" | "video";
   processingParameters: ProcessingParameters;
   outputFileName: string;
 }
